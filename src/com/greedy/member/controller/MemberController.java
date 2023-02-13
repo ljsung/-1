@@ -60,35 +60,106 @@ public class MemberController {
 	/* 아이디를 이용한 회원 정보 검색(MemberDTO로 한 명 회원 정보 조회) */
 	public void searchMemberById(String id) {
 
+		MemberDTO member  = memberService.selectMemberId(id);
+		
+		if(member != null) {
+			memberResultView.display(member);
+		} else { 
+			memberResultView.displayDmlResult("selectFailed");
+			
+		}
 	}
 
 	/* 성별을 이용한 회원 정보 검색 (List로 조회할 것)*/
 	public void searchMemberByGender(String gender) {
+		
+		List<MemberDTO> memberList = new ArrayList<>();
+		
+		memberList = memberService.findGender(gender);
+		
+		if(memberList != null) {
+			memberResultView.display(memberList);
+		} else {
+			memberResultView.displayDmlResult("selectFailed");
+		}
 
 	}
 
 	/* 입력받은 아이디와 일치하는 회원의 비밀번호 변경 */
 	public void modifyPassword(String memberId, String password) {
 
+		MemberDTO member = new MemberDTO();
+		member.setId(memberId);
+		member.setPwd(password);
+		
+		boolean isUpdate = memberService.updatePassword(member);
+		
+		if(isUpdate) {
+			memberResultView.displayDmlResult("updateSuccess");
+		} else {
+			memberResultView.displayDmlResult("updateFailed");
+		}
 	}
 
 	/* 입력받은 아이디와 일치하는 회원의 이메일 변경 */
 	public void modifyEmail(String memberId, String email) {
-
+		
+		MemberDTO member = new MemberDTO();
+		member.setId(memberId);
+		member.setPwd(email);
+		
+		boolean isUpdate = memberService.updateId(member);
+		
+		if(isUpdate) {
+			memberResultView.displayDmlResult("updateSuccess");
+		} else {
+			memberResultView.displayDmlResult("updateFailed");
+		}
 	}
 
 	/* 입력받은 아이디와 일치하는 회원의 전화번호 변경 */
 	public void modifyPhone(String memberId, String phone) {
 
+		MemberDTO member = new MemberDTO();
+		member.setId(memberId);
+		member.setEmail(phone);
+		
+		boolean isUpdate = memberService.updatePhone(member);
+		
+		if(isUpdate) {
+			memberResultView.displayDmlResult("updateSuccess");
+		} else {
+			memberResultView.displayDmlResult("updateFailed");
+		}
 	}
 
 	/* 입력받은 아이디와 일치하는 회원의 주소 변경 */
 	public void modifyAddress(String memberId, String address) {
 
+		MemberDTO member = new MemberDTO();
+		member.setId(memberId);
+		member.setAddress(address);
+		
+		boolean isUpdate = memberService.updateAddress(member);
+		
+		if(isUpdate) {
+			memberResultView.displayDmlResult("updateSuccess");
+		} else {
+			memberResultView.displayDmlResult("updateFailed");
+		}
+		
 	}
 
 	/* 회원 정보 삭제용 메소드 */
 	public void deleteMember(String memberId) {
+		
+		boolean isDeleted = memberService.deleteMember(memberId);
+		
+		if(isDeleted) {
+			memberResultView.displayDmlResult("deleteSuccess");
+		} else {
+			memberResultView.displayDmlResult("deleteFailed");
+		}
 
 	}
 

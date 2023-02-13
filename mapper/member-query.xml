@@ -18,7 +18,7 @@
        )
        VALUES
        (
-         SEQ_MEMBER_NO.NEXTVAR
+         SEQ_MEMBER_NO.NEXTVAL
        , ?
        , ?
        , ?
@@ -32,7 +32,8 @@
    </entry>
 
 	<entry key="selectMemberList">
-		SELECT      MEMBER_NO,
+		SELECT      
+	 MEMBER_NO,
      MEMBER_ID,
      MEMBER_PWD,
      MEMBER_NAME,
@@ -42,5 +43,60 @@
      ADDRESS,
      AGE,
      ENROLL_DATE  FROM TBL_MEMBER
+	</entry>
+	<entry key = "selectMemberId">
+		SELECT      
+	 MEMBER_NO,
+     MEMBER_ID,
+     MEMBER_PWD,
+     MEMBER_NAME,
+     GENDER,
+     EMAIL,
+     PHONE,
+     ADDRESS,
+     AGE,
+     ENROLL_DATE  
+     FROM TBL_MEMBER
+     WHERE
+     MEMBER_ID = ?
+	</entry>
+	<entry key = "findGender">
+		SELECT      
+	 MEMBER_NO,
+     MEMBER_ID,
+     MEMBER_PWD,
+     MEMBER_NAME,
+     GENDER,
+     EMAIL,
+     PHONE,
+     ADDRESS,
+     AGE,
+     ENROLL_DATE  
+     FROM TBL_MEMBER
+     WHERE
+     GENDER = ?
+	</entry>
+	<entry key = "updateId">
+		UPDATE
+			TBL_MEMBER
+		SET EMAIL = ?
+	  WHERE MEMBER_ID = ?
+	</entry>
+	<entry key = "updatePhone">
+		UPDATE
+			TBL_MEMBER
+		SET PHONE = ?
+	  WHERE MEMBER_ID = ?
+	</entry>
+	<entry key = "updateAddress">
+		UPDATE
+			TBL_MEMBER
+		SET ADDRESS = ?
+	  WHERE MEMBER_ID = ?
+	</entry>
+	<entry key = "deleteMember">
+		DELETE 
+		  FROM  TBL_MEMBER
+	  WHERE MEMBER_ID = ?
 	</entry>
 </properties>

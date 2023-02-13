@@ -60,6 +60,7 @@ public class MemberDAO {
 			e.printStackTrace();
 		} finally {
 			close(pstmt);
+			
 		}
 
 		return result;
@@ -87,14 +88,204 @@ public class MemberDAO {
 				row.setId(rset.getString("MEMBER_ID"));
 				row.setPwd(rset.getString("MEMBER_PWD"));
 				row.setName(rset.getString("MEMBER_NAME"));
-
+				row.setGender(rset.getString("GENDER"));
+				row.setEmail(rset.getString("EMAIL"));
+				row.setPhone(rset.getString("PHONE"));
+				row.setAddress(rset.getString("ADDRESS"));
+				row.setAge(Integer.parseInt(rset.getString("AGE")));
 				memberList.add(row);
 			}
 
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
+			close(stmt);
+			close(rset);
 		}
 		return memberList;
 
 	}
+
+
+
+
+	public MemberDTO selectMemberId(Connection con, String id) {
+		
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		MemberDTO member =null;
+		
+		String query =prop.getProperty("selectMemberId");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, id);
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				member = new MemberDTO();
+				
+				member.setNumber(rset.getInt("Member_No"));
+				member.setId(rset.getString("Member_Id"));
+				member.setPwd(rset.getString("Member_Pwd"));
+				member.setName(rset.getString("Member_Name"));
+				member.setGender(rset.getString("Gender"));
+				member.setEmail(rset.getString("Email"));
+				member.setPhone(rset.getString("Phone"));
+				member.setAddress(rset.getString("Address"));
+				member.setAge(Integer.parseInt(rset.getString("Age")));
+				
+			
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+			close(rset);
+		}
+		
+		return member;
+	}
+
+	public List<MemberDTO> findGender(Connection con,String gender) {
+		
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		List<MemberDTO> memberList =null;
+				
+		String query = prop.getProperty("findGender");
+		
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, gender);
+			rset = pstmt.executeQuery();
+			memberList = new ArrayList<>();
+			while(rset.next()) {
+
+				MemberDTO row = new MemberDTO();
+
+				row.setId(rset.getString("MEMBER_ID"));
+				row.setPwd(rset.getString("MEMBER_PWD"));
+				row.setName(rset.getString("MEMBER_NAME"));
+				row.setGender(rset.getString("GENDER"));
+				row.setEmail(rset.getString("EMAIL"));
+				row.setPhone(rset.getString("PHONE"));
+				row.setAddress(rset.getString("ADDRESS"));
+				row.setAge(Integer.parseInt(rset.getString("AGE")));
+				memberList.add(row);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+			close(rset);
+			
+		}
+		
+		
+		return memberList;
+	}
+
+	public int updatePassword(Connection con, MemberDTO member) {
+		
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String query = prop.getProperty("updatePassword");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, member.getPwd());
+			pstmt.setString(2, member.getId());
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
+
+	public int updateId(Connection con, MemberDTO member) {
+		
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String query = prop.getProperty("updateId");
+		
+			try {
+				pstmt = con.prepareStatement(query);
+				pstmt.setString(1, member.getEmail());
+				pstmt.setString(2, member.getId());
+				
+				result = pstmt.executeUpdate();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			
+		
+		return result;
+	}
+
+	public int updatePhone(Connection con, MemberDTO member) {
+		
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String query = prop.getProperty("updatePhone");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, member.getPhone());
+			pstmt.setString(2, member.getId());
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
+
+	public int updateAddress(Connection con, MemberDTO member) {
+		
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String query = prop.getProperty("updateAddress");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, member.getAddress());
+			pstmt.setString(2, member.getId());
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	
+		return result;
+	}
+
+	public int deleteMember(Connection con, String id) {
+		
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String query = prop.getProperty("deleteMember");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, id);
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
+	
+	
+
+	
+
+	
+
+	
 }
