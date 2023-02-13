@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+<entry key="insertMember">
+      INSERT /* com.greedy.run.Application#main() */
+        INTO TBL_MEMBER A
+       (
+         A.MEMBER_NO
+       , A.MEMBER_ID
+       , A.MEMBER_PWD
+       , A.MEMBER_NAME
+       , A.GENDER
+       , A.EMAIL
+       , A.PHONE
+       , A.ADDRESS
+       , A.AGE
+       , A.ENROLL_DATE
+       )
+       VALUES
+       (
+         SEQ_MEMBER_NO.NEXTVAR
+       , ?
+       , ?
+       , ?
+       , ?
+       , ?
+       , ?
+       , ?
+       , ?
+       , SYSDATE
+       )
+   </entry>
+
+	<entry key="selectMemberList">
+		SELECT      MEMBER_NO,
+     MEMBER_ID,
+     MEMBER_PWD,
+     MEMBER_NAME,
+     GENDER,
+     EMAIL,
+     PHONE,
+     ADDRESS,
+     AGE,
+     ENROLL_DATE  FROM TBL_MEMBER
+	</entry>
+</properties>
